@@ -20,4 +20,5 @@ func main() {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("serving root")
+	renderTemplate(w, "root", nil)
 }
