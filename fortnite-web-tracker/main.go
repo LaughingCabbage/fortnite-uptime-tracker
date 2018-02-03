@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -32,12 +31,16 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	//extract the json into a structure
 	var serverStatus []ServerStatus
 	if err := json.Unmarshal(status, &serverStatus); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	data := Data{"status": serverStatus}
+
+	//send the status structure to the template
+	data := Data{"status": serverStatus[0]}
 	renderTemplate(w, "root", data)
 }
 
@@ -49,7 +52,6 @@ func getServerStatus() ([]byte, error) {
 	}
 	//close request body on return
 	defer req.Body.Close()
-	fmt.Println(req.Header)
 	//read the response from the body
 	body, err := ioutil.ReadAll(req.Body)
 	if err != nil {
