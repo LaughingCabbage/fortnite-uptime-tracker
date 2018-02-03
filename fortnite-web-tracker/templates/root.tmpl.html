@@ -9,9 +9,18 @@
 					<div class="col-md-8">
 						<h1 class="display-4 text-center">Fortnite Uptime Tracker</h1>
 					</div>
+					{{with .status}}
+					{{if eq .Status "UP"}}
+					<div class="col-md-8 mt-3 text-center">
+						<a class="btn btn-success btn-lg text-white">Fortnite servers are up!</a>
+					</div>
+					{{else}}
 					<div class="col-md-8 mt-3 text-center">
 						<a class="btn btn-danger btn-lg text-white">Fortnite servers are down!</a>
 					</div>
+					{{end}}
+					{{end}}
+
 				</div>
 			</div>
 		</div>
